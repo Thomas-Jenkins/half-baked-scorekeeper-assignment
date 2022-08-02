@@ -20,6 +20,8 @@ let name2 = '';
 let score1 = 0;
 let score2 = 0;
 
+
+
 nameFormButton.addEventListener('click', () => {
     // get the name data from the form
     const nameOne = document.querySelector('[name="team-one"]');
@@ -71,12 +73,11 @@ finishGameButton.addEventListener('click', () => {
     
     // add the current game to an array of games in state
     
-
     let currentGame = {
-        name1: teamOneLabel.textContent,
-        name2: teamTwoLabel.textContent,
-        finalScore1: score1,
-        finalScore2: score2,
+        name1: name1,
+        name2: name2,
+        score1: score1,
+        score2: score2,
     };
 
     pastGames.push(currentGame);
@@ -85,20 +86,19 @@ finishGameButton.addEventListener('click', () => {
     // for example, make an object like this: { name1: 'ducks', name2: 'bears' ,score1: 1, score2: 2 } 
     // then push it to your array in state
     // (be sure to make a new object. do not declare the object in global scope and mutate it for reuse. This would cause difficult bugs)
-    
+   
     
     displayAllGames();
 
     // reset the state to zero and empty strings
-    currentGame = {
-        name1: '',
-        name2: '',
-        finalScore1: 0,
-        finalScore2: 0
-    };
+   
+    name1 = '';
+    name2 = '';
     score1 = 0;
     score2 = 0;
+    
     // refresh the current game element with new data by calling the appropriate function
+    console.log(currentGame);
     console.log(pastGames);
     refreshCurrentGameEl();
 });
@@ -127,9 +127,10 @@ function displayAllGames() {
     pastGamesEl.textContent = '';
     // loop through the past games in state
     for (let game of pastGames) {
-        const gameEl = renderGame(game);
+        const gameEl = renderGame(game.name1, game.name2, game.score1, game.score2);
         pastGamesEl.append(gameEl); 
     }
     // use the renderGame function to render and append a past game for each past game in state
     // again, review the renderGame function in render-utils.js. How many arguments does it take? What order does it take them in?
+    // return pastGamesEl;
 }
